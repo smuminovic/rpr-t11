@@ -11,6 +11,10 @@ public class GeografijaDAO implements DAO {
         return instance;
     }
 
+    public  static void removeInstance() {
+        instance = null;
+    }
+
     private Connection connection;
 
     private GeografijaDAO() {
@@ -45,6 +49,14 @@ public class GeografijaDAO implements DAO {
 
     @Override
     public void obrisiDrzavu(String drzava) {
+        String sql = "delete from drzava where naziv = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1,drzava);
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -62,6 +74,7 @@ public class GeografijaDAO implements DAO {
 
     @Override
     public void izmijeniGrad(Grad grad) {
+
     }
 
     @Override
