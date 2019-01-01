@@ -8,6 +8,7 @@ public class GeografijaDAO implements DAO {
     private static GeografijaDAO instance = new GeografijaDAO();
 
     public static GeografijaDAO getInstance() {
+        if(instance == null) instance = new GeografijaDAO();;
         return instance;
     }
 
@@ -23,6 +24,39 @@ public class GeografijaDAO implements DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ubaciPocetneGradove();
+    }
+
+    private void ubaciPocetneGradove() {
+        //Pariz
+        Grad pariz = new Grad("Pariz", 2229621, 1);
+        Drzava francuska = new Drzava("Francuska",1);
+        francuska.setGlavniGrad(pariz);
+        pariz.setDrzava(francuska);
+        dodajGrad(pariz);
+        dodajDrzavu(francuska);
+        //Beč
+        Grad bec = new Grad("Beč", 1867582, 3);
+        Drzava austrija = new Drzava("Austrija", 3);
+        austrija.setGlavniGrad(bec);
+        bec.setDrzava(austrija);
+        dodajGrad(bec);
+        dodajDrzavu(austrija);
+        // London
+        Grad london = new Grad("London", 8825000, 2);
+        Drzava uk = new Drzava("Velika Britanija", 2);
+        uk.setGlavniGrad(london);
+        london.setDrzava(uk);
+        dodajGrad(london);
+        dodajDrzavu(uk);
+        // Manchester
+        Grad manchester = new Grad("Manchester", 545500,2);
+        manchester.setDrzava(uk);
+        dodajGrad(manchester);
+        // Graz
+        Grad graz = new Grad("Graz", 280200, 3);
+        graz.setDrzava(austrija);
+        dodajGrad(graz);
     }
 
     @Override

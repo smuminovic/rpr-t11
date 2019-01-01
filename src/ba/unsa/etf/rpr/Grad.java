@@ -6,6 +6,15 @@ public class Grad {
     private String naziv;
     private int brojStanovnika;
     private long drzavaId;
+    private Drzava drzava;
+
+    public Grad(String naziv, int brojStanovnika, long drzavaId) {
+        this.naziv = naziv;
+        this.brojStanovnika = brojStanovnika;
+        this.drzavaId = drzavaId;
+    }
+
+    public Grad() {}
 
     public long getId() {
         return id;
@@ -37,5 +46,13 @@ public class Grad {
 
     public void setBrojStanovnika(int brojStanovnika) {
         this.brojStanovnika = brojStanovnika;
+    }
+
+    public Drzava getDrzava() {
+        return drzava;
+    }
+
+    public void setDrzava(Drzava drzava) {
+        this.drzava = drzava;
     }
 }
