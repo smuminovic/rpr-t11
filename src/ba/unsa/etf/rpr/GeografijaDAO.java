@@ -106,6 +106,22 @@ public class GeografijaDAO implements DAO {
 
     @Override
     public Drzava nadjiDrzavu(String drzava) {
+        String sql = "select id, naziv, glavni_grad from drzava where naziv = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, drzava);
+            ResultSet set = stmt.executeQuery();
+
+            while ( set.next() ) {
+                Drzava d = new Drzava();
+                d.setId(set.getLong(1));
+                d.setNaziv(set.getString(2));
+                d.setGradId(set.getLong(3));
+                return d;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
