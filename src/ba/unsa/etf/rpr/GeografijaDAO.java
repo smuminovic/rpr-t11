@@ -74,7 +74,17 @@ public class GeografijaDAO implements DAO {
 
     @Override
     public void izmijeniGrad(Grad grad) {
-
+        String sql = "update grad set naziv = ?, broj_stanovnika = ?, drzava = ? where id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1 , grad.getNaziv());
+            stmt.setInt(2,grad.getBrojStanovnika());
+            stmt.setLong(3,grad.getDrzavaId());
+            stmt.setLong(4,grad.getId());
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
