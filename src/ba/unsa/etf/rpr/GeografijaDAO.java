@@ -111,6 +111,16 @@ public class GeografijaDAO implements DAO {
 
     @Override
     public void dodajDrzavu(Drzava drzava) {
+        String sql = "insert into drzava (naziv, glavni_grad) values (?, ?)";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, drzava.getNaziv());
+            stmt.setLong(2, drzava.getGradId());
+            stmt.execute();
+            drzava.setId(lastInsertedId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
