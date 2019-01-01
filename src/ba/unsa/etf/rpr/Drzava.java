@@ -3,8 +3,7 @@ package ba.unsa.etf.rpr;
 public class Drzava {
     private long id;
     private String naziv;
-    private int brojStanovnika;
-    private long drzavaId;
+    private long gradId;
 
     public long getId() {
         return id;
@@ -22,19 +21,11 @@ public class Drzava {
         this.naziv = naziv;
     }
 
-    public int getBrojStanovnika() {
-        return brojStanovnika;
+    public long getGradId() {
+        return gradId;
     }
 
-    public void setBrojStanovnika(int brojStanovnika) {
-        this.brojStanovnika = brojStanovnika;
-    }
-
-    public long getDrzavaId() {
-        return drzavaId;
-    }
-
-    public void setDrzavaId(long drzavaId) {
-        this.drzavaId = drzavaId;
+    public void setGradId(long gradId) {
+        this.gradId = gradId;
     }
 }
