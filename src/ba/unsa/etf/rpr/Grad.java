@@ -8,13 +8,14 @@ public class Grad {
     private long drzavaId;
     private Drzava drzava;
 
-    public Grad(String naziv, int brojStanovnika, long drzavaId) {
+    public Grad(long id, String naziv, int brojStanovnika, long drzavaId) {
+        this.id = id;
         this.naziv = naziv;
         this.brojStanovnika = brojStanovnika;
         this.drzavaId = drzavaId;
     }
 
-    public Grad() {}
+    public Grad() {this.id = -1;}
 
     public long getId() {
         return id;
