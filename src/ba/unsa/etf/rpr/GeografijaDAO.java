@@ -83,6 +83,30 @@ public class GeografijaDAO implements DAO {
 
     @Override
     public void dodajGrad(Grad grad) {
+        String sql = "insert into grad(naziv, broj_stanovnika, drzava) values (?, ?, ?)";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, grad.getNaziv());
+            stmt.setInt(2, grad.getBrojStanovnika());
+            stmt.setLong(3, grad.getDrzavaId());
+            stmt.execute();
+            grad.setId(lastInsertedId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private long lastInsertedId() {
+        String sql = "select last_insert_rowid()";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultSet = stmt.executeQuery();
+            resultSet.next();
+            return resultSet.getLong(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     @Override
