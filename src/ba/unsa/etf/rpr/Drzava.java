@@ -6,13 +6,13 @@ public class Drzava {
     private long gradId;
     private Grad glavniGrad;
 
-    public Drzava (long id, String naziv, long gradId) {
-        this.id = id;
+    public Drzava (String naziv, long gradId) {
+        //this.id = id;
         this.naziv = naziv;
         this.gradId = gradId;
     }
 
-    public Drzava() {this.id = -1;}
+    public Drzava() {}
 
     public long getId() {
         return id;
