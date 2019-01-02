@@ -170,7 +170,7 @@ public class GeografijaDAO implements DAO {
     public ArrayList<Grad> gradovi() {
         ArrayList<Drzava> drzave = new ArrayList<>();
         drzave = drzave();
-        String sql = "select id, naziv, broj_stanovnika, drzava from grad";
+        String sql = "select id, naziv, broj_stanovnika, drzava from grad order by broj_stanovnika desc ";
         ArrayList<Grad> res = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -215,17 +215,30 @@ public class GeografijaDAO implements DAO {
 
     @Override
     public void dodajGrad(Grad grad) {
-            String sql = "insert into grad(naziv, broj_stanovnika, drzava) values (?, ?, ?)";
-            try {
-                PreparedStatement stmt = connection.prepareStatement(sql);
-                stmt.setString(1, grad.getNaziv());
-                stmt.setInt(2, grad.getBrojStanovnika());
-                stmt.setLong(3, grad.getDrzavaId());
-                stmt.execute();
-                grad.setId(lastInsertedId());
-            } catch (SQLException e) {
-                e.printStackTrace();
+        ArrayList<Drzava> drzave = drzave();
+        long drId = 0;
+        if (drzave.size() == 0) {
+            drId = drzave.size()+1;
+        }
+        else {
+            drId = drzave.size();
+        }
+        for (Drzava d:drzave) {
+            if (d.getNaziv().equals(grad.getDrzava().getNaziv())) {
+                drId = d.getId();
             }
+        }
+        String sql = "insert into grad(naziv, broj_stanovnika, drzava) values (?, ?, ?)";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, grad.getNaziv());
+            stmt.setInt(2, grad.getBrojStanovnika());
+            stmt.setLong(3, drId); //grad.getDrzavaId()
+            stmt.execute();
+            grad.setId(lastInsertedId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private long lastInsertedId() {
@@ -243,11 +256,24 @@ public class GeografijaDAO implements DAO {
 
     @Override
     public void dodajDrzavu(Drzava drzava) {
+        ArrayList<Grad> gradovi = gradovi();
+        long grId = 0;
+        if (gradovi.size() == 0) {
+            grId = gradovi.size()+1;
+        }
+        else {
+            grId = gradovi.size();
+        }
+        for (Grad g:gradovi) {
+            if (g.getNaziv().equals(drzava.getGlavniGrad().getNaziv())) {
+                grId = g.getId();
+            }
+        }
         String sql = "insert into drzava (naziv, glavni_grad) values (?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, drzava.getNaziv());
-            stmt.setLong(2, drzava.getGradId());
+            stmt.setLong(2, grId); //drzava.getGradId()
             stmt.execute();
             drzava.setId(lastInsertedId());
         } catch (SQLException e) {
