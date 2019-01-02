@@ -81,7 +81,7 @@ public class GeografijaDAO implements DAO {
 
     private void ubaciPocetneGradove() {
         //Pariz
-        Grad pariz = new Grad( "Pariz", 2229621, 1);
+        Grad pariz = new Grad( "Pariz", 2206488, 1);
         Drzava francuska = new Drzava("Francuska",1);
         francuska.setGlavniGrad(pariz);
         pariz.setDrzava(francuska);
@@ -95,7 +95,7 @@ public class GeografijaDAO implements DAO {
         dodajGrad(london);
         dodajDrzavu(uk);
         //Beč
-        Grad bec = new Grad( "Beč", 1867582, 3);
+        Grad bec = new Grad( "Beč", 1899055, 3);
         Drzava austrija = new Drzava( "Austrija", 3);
         austrija.setGlavniGrad(bec);
         bec.setDrzava(austrija);
@@ -244,7 +244,7 @@ public class GeografijaDAO implements DAO {
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, drzava.getNaziv());
-            stmt.setLong(2, drzava.getGradId()); 
+            stmt.setLong(2, drzava.getGradId());
             stmt.execute();
             drzava.setId(lastInsertedId());
         } catch (SQLException e) {
